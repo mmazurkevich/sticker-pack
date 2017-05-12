@@ -1,5 +1,6 @@
 package hello.storage;
 
+import hello.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -30,7 +31,10 @@ public class FileSystemStorageService implements StorageService {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            String[] splitedFileName = file.getOriginalFilename().split("\\.");
+            String fileExtension = splitedFileName[splitedFileName.length - 1];
+            String fileHash = Hash.SHA1.checksum(file.getInputStream()).toLowerCase();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(fileHash + "." + fileExtension));
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
