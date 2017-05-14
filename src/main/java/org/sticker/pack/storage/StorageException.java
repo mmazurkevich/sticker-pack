@@ -1,4 +1,4 @@
-package hello.storage;
+package org.sticker.pack.storage;
 
 public class StorageException extends RuntimeException {
 

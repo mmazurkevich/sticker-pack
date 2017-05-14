@@ -1,15 +1,12 @@
-package hello;
+package org.sticker.pack;
 
-import hello.storage.StorageProperties;
-import hello.storage.StorageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-
-import javax.annotation.PreDestroy;
+import org.sticker.pack.service.ImageService;
+import org.sticker.pack.storage.StorageProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
@@ -20,10 +17,10 @@ public class Application {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(ImageService imageService) {
 		return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
+//			imageService.deleteAll();
+			imageService.init();
 		};
 	}
 }

@@ -6,21 +6,12 @@
 	</div>
 
 	<div>
-		<form method="POST" enctype="multipart/form-data" action="/image">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-			</table>
+		<form method="POST" enctype="multipart/form-data" action="/sticker">
+			<input type="text" name="stickerName"/>
+			<input type="number" name="stickerPrice" step="0.01" min="0.01" max="99"/>
+			<input type="file" name="stickerImage"/>
+			<input type="submit" value="Add"/>
 		</form>
-	</div>
-
-	<div>
-		<ul>
-			<li th:each="file : ${files}">
-				<a th:href="${file}" th:text="${file}" />
-				<img th:src="${file}" width="200" height="500"/>
-			</li>
-		</ul>
 	</div>
 
 </body>

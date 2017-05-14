@@ -1,38 +1,87 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: marceloverdijk
+      author: mmazurkevich
       changes:
         - createTable:
-            tableName: person
+            tableName: sticker
             columns:
               - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
+                  name: uuid
+                  type: varchar(32)
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: first_name
+                  name: sticker_name
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: last_name
-                  type: varchar(255)
+                  name: price
+                  type: real
                   constraints:
                     nullable: false
-  - changeSet:
-      id: 2
-      author: marceloverdijk
-      changes:
-        - insert:
-            tableName: person
+              - column:
+                  name: create_date
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: count
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image_uuid
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: image
             columns:
               - column:
-                  name: first_name
-                  value: Marcel
+                  name: uuid
+                  type: varchar(32)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
               - column:
-                  name: last_name
-                  value: Overdijk
+                  name: origin_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hash_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_date
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: image_uuid
+            baseTableName: sticker
+            constraintName: fk_sticker_image
+            referencedColumnNames: uuid
+            referencedTableName: image
+#  - changeSet:
+#      id: 2
+#      author: marceloverdijk
+#      changes:
+#        - insert:
+#            tableName: person
+#            columns:
+#              - column:
+#                  name: first_name
+#                  value: Marcel
+#              - column:
+#                  name: last_name
+#                  value: Overdijk

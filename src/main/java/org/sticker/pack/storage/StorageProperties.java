@@ -1,4 +1,4 @@
-package hello.storage;
+package org.sticker.pack.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

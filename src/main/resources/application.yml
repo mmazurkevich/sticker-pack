@@ -1,15 +1,25 @@
 spring:
   http:
     multipart:
-      max-file-size: 128KB
-      max-request-size: 128KB
+      max-file-size: 512KB
+      max-request-size: 512KB
   thymeleaf:
     cache: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sticker_pack
+    username: eobr
+    password: eobr
+    driverClassName: org.postgresql.Driver
+#  jpa:
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: update
 storage:
-  location: trololo
+  location: images
 liquibase:
-  change-log: db/master-changelog.yml
-  url: jdbc:postgres://ec2-54-228-235-185.eu-west-1.compute.amazonaws.com:5432/da3lsnncharqf7
-  user: waxxicpowfpdov
-  password: 9b352154c508fe792cd3aac8d8dce99c6c022c86f8dc60c37702824aa124bc98
-  enabled: true
+  change-log: classpath:db/master-changelog.yml
+#  url: jdbc:postgres://ec2-54-228-235-185.eu-west-1.compute.amazonaws.com:5432/da3lsnncharqf7
+#  user: waxxicpowfpdov
+#  password: 9b352154c508fe792cd3aac8d8dce99c6c022c86f8dc60c37702824aa124bc98
+#  enabled: true
+

@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div>
+    <table>
+        <tr th:each="sticker : ${stickerDtos}">
+            <td th:text="${sticker.name}"></td>
+            <td th:text="${sticker.price}"></td>
+            <td><img th:src="${sticker.imageUrl}" width="200" height="200"/></td>
+        </tr>
+    </table>
+    <a href="/image">Create Sticker</a>
+</div>
+
+</body>
+</html>
