@@ -12,22 +12,21 @@
     <a href="/image">Create Sticker</a>
 </div>
 <table>
-    <tr th:if="${stickerPage.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+    <tr th:if="${stickerPage.totalPages != 1}" >
         <td th:class="${stickerPage.number == 0} ? disabled">
-            <a class="pageLink" th:href="@{/sticker(page=1)}">&laquo;</a>
+            <a th:href="@{/sticker(page=1)}">&laquo;</a>
         </td>
         <td th:class="${stickerPage.number == 0} ? disabled">
-            <a class="pageLink" th:href="@{/sticker(page=${stickerPage.number})}">&larr;</a>
+            <a th:href="@{/sticker(page=${stickerPage.number})}">&larr;</a>
         </td>
-        <td th:class="${stickerPage.number == (page - 1)} ? 'active pointer-disabled'"
-            th:each="page : ${#numbers.sequence(1, 3)}">
-            <a class="pageLink" th:href="@{/sticker(page=${page})}" th:text="${page}"></a>
+        <td th:each="page : ${#numbers.sequence(stickerPage.number + 1, stickerPage.totalPages)}">
+            <a th:href="@{/sticker(page=${page})}" th:text="${page}"></a>
         </td>
         <td th:class="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled">
-            <a class="pageLink" th:href="@{/sticker(page=${stickerPage.number + 2})}">&rarr;</a>
+            <a th:href="@{/sticker(page=${stickerPage.number + 2})}">&rarr;</a>
         </td>
         <td th:class="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled">
-            <a class="pageLink" th:href="@{/sticker(page=${stickerPage.totalPages})}">&raquo;</a>
+            <a th:href="@{/sticker(page=${stickerPage.totalPages})}">&raquo;</a>
         </td>
     </tr>
 </table>
