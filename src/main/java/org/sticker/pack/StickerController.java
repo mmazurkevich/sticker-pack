@@ -1,6 +1,9 @@
 package org.sticker.pack;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import org.sticker.pack.service.StickerService;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +30,8 @@ public class StickerController {
     private ImageService imageService;
     @Autowired
     private StickerService stickerService;
+
+    private static final int INITIAL_PAGE = 0;
 
     @PostMapping("/sticker")
     private String add(@RequestParam("stickerImage") MultipartFile stickerImage,
@@ -41,9 +47,10 @@ public class StickerController {
     }
 
     @GetMapping("/sticker")
-    private String listStickers(Model model) {
-        List<Sticker> stickerList = stickerService.getAllStickers();
-        List<StickerDto> stickerDtos = stickerList.stream()
+    private String listStickers(@RequestParam("page") Optional<Integer> page, Model model) {
+                int pageValue = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        Page<Sticker> stickerList = stickerService.getAllStickers(new PageRequest(pageValue, 3));
+        List<StickerDto> stickerDtos = stickerList.getContent().stream()
                 .map(sticker -> {
                     StickerDto stickerDto = new StickerDto();
                     stickerDto.setName(sticker.getName());
@@ -56,6 +63,7 @@ public class StickerController {
                     return stickerDto;})
                 .collect(Collectors.toList());
         model.addAttribute("stickerDtos", stickerDtos);
+        model.addAttribute("stickerPage", stickerList);
         return "stickerList";
     }
 

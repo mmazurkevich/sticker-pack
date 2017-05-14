@@ -1,6 +1,8 @@
 package org.sticker.pack.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.sticker.pack.model.Sticker;
 import org.sticker.pack.repository.StickerRepository;
@@ -24,5 +26,9 @@ public class StickerService {
 
     public List<Sticker> getAllStickers() {
         return stickerRepository.findAll();
+    }
+
+    public Page<Sticker> getAllStickers(Pageable pageable) {
+        return stickerRepository.findAll(pageable);
     }
 }
