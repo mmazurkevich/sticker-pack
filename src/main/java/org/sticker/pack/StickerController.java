@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.sticker.pack.dto.StickerDto;
 import org.sticker.pack.model.Image;
+import org.sticker.pack.model.Pager;
 import org.sticker.pack.model.Sticker;
 import org.sticker.pack.service.ImageService;
 import org.sticker.pack.service.StickerService;
@@ -62,8 +63,10 @@ public class StickerController {
                     stickerDto.setImageUrl(imageUrl);
                     return stickerDto;})
                 .collect(Collectors.toList());
+        Pager pager = new Pager(stickerList.getTotalPages(), stickerList.getNumber());
         model.addAttribute("stickerDtos", stickerDtos);
         model.addAttribute("stickerPage", stickerList);
+        model.addAttribute("pager", pager);
         return "stickerList";
     }
 

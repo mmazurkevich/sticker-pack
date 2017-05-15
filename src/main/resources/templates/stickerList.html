@@ -19,7 +19,7 @@
         <td th:class="${stickerPage.number == 0} ? disabled">
             <a th:href="@{/sticker(page=${stickerPage.number})}">&larr;</a>
         </td>
-        <td th:each="page : ${#numbers.sequence(stickerPage.number + 1, stickerPage.totalPages)}">
+        <td th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
             <a th:href="@{/sticker(page=${page})}" th:text="${page}"></a>
         </td>
         <td th:class="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled">
