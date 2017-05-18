@@ -5,7 +5,7 @@ package org.sticker.pack.model;
  */
 public class Pager {
 
-    private int buttonsToShow = 3;
+    private int buttonsToShow = 5;
 
     private int startPage;
 
@@ -13,27 +13,23 @@ public class Pager {
 
     public Pager(int totalPages, int currentPage) {
 
-        int halfPagesToShow = getButtonsToShow() / 2;
+        int halfPagesToShow = buttonsToShow / 2;
 
-        if (totalPages <= getButtonsToShow()) {
-            setStartPage(1);
-            setEndPage(totalPages);
-
+        if (totalPages <= buttonsToShow) {
+            this.startPage = 1;
+            this.endPage = totalPages;
         } else if (currentPage - halfPagesToShow <= 0) {
-            setStartPage(1);
-            setEndPage(getButtonsToShow());
-
+            this.startPage = 1;
+            this.endPage = buttonsToShow;
         } else if (currentPage + halfPagesToShow == totalPages) {
-            setStartPage(currentPage - halfPagesToShow);
-            setEndPage(totalPages);
-
+            this.startPage = currentPage - halfPagesToShow;
+            this.endPage  = totalPages;
         } else if (currentPage + halfPagesToShow > totalPages) {
-            setStartPage(totalPages - getButtonsToShow() + 1);
-            setEndPage(totalPages);
-
+            this.startPage = totalPages - buttonsToShow + 1;
+            this.endPage = totalPages;
         } else {
-            setStartPage(currentPage - halfPagesToShow);
-            setEndPage(currentPage + halfPagesToShow);
+            this.startPage = currentPage - halfPagesToShow;
+            this.endPage = currentPage + halfPagesToShow;
         }
 
     }

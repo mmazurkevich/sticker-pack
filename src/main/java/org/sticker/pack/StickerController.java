@@ -63,7 +63,7 @@ public class StickerController {
                     stickerDto.setImageUrl(imageUrl);
                     return stickerDto;})
                 .collect(Collectors.toList());
-        Pager pager = new Pager(stickerList.getTotalPages(), stickerList.getNumber());
+        Pager pager = new Pager(stickerList.getTotalPages(), stickerList.getNumber() + 1);
         model.addAttribute("stickerDtos", stickerDtos);
         model.addAttribute("stickerPage", stickerList);
         model.addAttribute("pager", pager);
