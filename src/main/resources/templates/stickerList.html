@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <div>
     <table>
         <tr th:each="sticker : ${stickerDtos}">
