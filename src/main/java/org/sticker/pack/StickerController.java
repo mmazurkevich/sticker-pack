@@ -67,7 +67,7 @@ public class StickerController {
         model.addAttribute("stickerDtos", stickerDtos);
         model.addAttribute("stickerPage", stickerList);
         model.addAttribute("pager", pager);
-        return "stickerList";
+        return "sticker";
     }
 
     @DeleteMapping("/sticker")

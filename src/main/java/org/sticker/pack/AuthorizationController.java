@@ -13,9 +13,4 @@ public class AuthorizationController {
     public String loginPage() {
         return "login";
     }
-
-    @GetMapping("/lol")
-    public String lol() {
-        return "index";
-    }
 }
