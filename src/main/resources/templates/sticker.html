@@ -85,27 +85,22 @@
                     </div>
                 </div>
 
-                <table>
-                    <tr th:if="${stickerPage.totalPages != 1}" >
-                        <td th:if="${stickerPage.number != 0}">
-                            <a th:href="@{/sticker(page=1)}">&laquo;</a>
-                        </td>
-                        <td th:if="${stickerPage.number != 0}">
-                            <a th:href="@{/sticker(page=${stickerPage.number})}">&larr;</a>
-                        </td>
-                        <td th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-                            <a th:href="@{/sticker(page=${page})}" th:text="${page}"></a>
-                        </td>
-                        <td th:if="${stickerPage.number + 1 != stickerPage.totalPages}">
-                            <a th:href="@{/sticker(page=${stickerPage.number + 2})}">&rarr;</a>
-                        </td>
-                        <td th:if="${stickerPage.number + 1 != stickerPage.totalPages}">
-                            <a th:href="@{/sticker(page=${stickerPage.totalPages})}">&raquo;</a>
-                        </td>
-                    </tr>
-                </table>
+                <nav aria-label="Page navigation" th:if="${stickerPage.totalPages != 1}">
+                    <ul class="pager">
+                        <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
+                            <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span aria-hidden="true">&larr;</span> Older</a>
+                        </li>
 
+                        <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
+                                                th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
+                            <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
+                        </li>
 
+                        <li class="next" th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
+                            <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span aria-hidden="true">&rarr;</span></a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
