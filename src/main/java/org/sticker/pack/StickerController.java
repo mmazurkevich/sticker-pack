@@ -54,6 +54,7 @@ public class StickerController {
         List<StickerDto> stickerDtos = stickerList.getContent().stream()
                 .map(sticker -> {
                     StickerDto stickerDto = new StickerDto();
+                    stickerDto.setUuid(sticker.getUuid());
                     stickerDto.setName(sticker.getName());
                     stickerDto.setPrice(sticker.getPrice());
                     Path imagePath = imageService.loadImage(sticker.getImage().getHashName());

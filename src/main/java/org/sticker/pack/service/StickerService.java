@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.sticker.pack.model.Sticker;
 import org.sticker.pack.repository.StickerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,13 @@ public class StickerService {
         sticker.setCount(STICKER_COUNT);
         stickerRepository.save(sticker);
     }
+
+    public List<Sticker> getAllStickers(List<String> stickersUUID) {
+        List<Sticker> stickers = new ArrayList<>();
+        stickersUUID.forEach(uuid -> stickers.add(stickerRepository.findOne(uuid)));
+        return stickers;
+    }
+
 
     public List<Sticker> getAllStickers() {
         return stickerRepository.findAll();

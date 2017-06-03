@@ -5,9 +5,18 @@ package org.sticker.pack.dto;
  */
 public class StickerDto {
 
+    private String uuid;
     private String name;
     private float price;
     private String imageUrl;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getName() {
         return name;
