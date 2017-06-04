@@ -49,6 +49,10 @@ body {
     color: #333;
 }
 
+.caption-title {
+    padding: 9px;
+}
+
 footer {
     margin: 50px 0;
 }

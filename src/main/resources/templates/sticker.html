@@ -10,108 +10,117 @@
 
 <body>
 
-    <div th:replace="fragments/header :: header">...</div>
+<div th:replace="fragments/header :: header">...</div>
 
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-        <div class="row">
+    <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">Shop Name</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="picture/11212582262d1ab9ddf2d454e6c76b0a.jpg" alt=""/>
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="picture/279722c110d019dfb674071e67497a73.jpg" alt=""/>
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="picture/aa1c50ed59d20d244f1fadf5e20652c0.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <div class="col-sm-4 col-lg-4 col-md-4" th:each="sticker : ${stickerDtos}">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="" width="200" height="200" th:src="${sticker.imageUrl}"/>
-                            <div class="caption">
-                                <h4 class="pull-right" th:text="${sticker.price}">$24.99</h4>
-                                <h4><a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}" th:text="${sticker.name}">First Product</a>
-                                </h4>
-                                <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <nav aria-label="Page navigation" th:if="${stickerPage.totalPages != 1}">
-                    <ul class="pager">
-                        <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
-                            <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span aria-hidden="true">&larr;</span> Older</a>
-                        </li>
-
-                        <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
-                                                th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
-                            <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
-                        </li>
-
-                        <li class="next" th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
-                            <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span aria-hidden="true">&rarr;</span></a>
-                        </li>
-                    </ul>
-                </nav>
+        <div class="col-md-3">
+            <p class="lead">Shop Name</p>
+            <div class="list-group">
+                <a href="#" class="list-group-item">Category 1</a>
+                <a href="#" class="list-group-item">Category 2</a>
+                <a href="#" class="list-group-item">Category 3</a>
             </div>
         </div>
 
-    </div>
-    <div th:replace="fragments/footer :: footer">...</div>
+        <div class="col-md-9">
 
-    <!-- /.container -->
-    <!-- jQuery -->
-    <script src="js/jquery.js"/>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"/>
+            <div class="row carousel-holder">
+
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img class="slide-image" src="picture/11212582262d1ab9ddf2d454e6c76b0a.jpg" alt=""/>
+                            </div>
+                            <div class="item">
+                                <img class="slide-image" src="picture/279722c110d019dfb674071e67497a73.jpg" alt=""/>
+                            </div>
+                            <div class="item">
+                                <img class="slide-image" src="picture/aa1c50ed59d20d244f1fadf5e20652c0.jpg" alt=""/>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-4 col-lg-4 col-md-4" th:each="sticker : ${stickerDtos}">
+                    <div class="thumbnail">
+                        <img src="http://placehold.it/320x150" alt="" width="200" height="200"
+                             th:src="${sticker.imageUrl}"/>
+                        <div class="caption-title">
+                            <h3>
+                                    <a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"
+                                       th:text="${sticker.name}">First Product</a>
+                            </h3>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">15 reviews</p>
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <h4 th:text="${sticker.price}">$24.99</h4>
+                            <a href="#" class="glyphicon glyphicon-shopping-cart" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav aria-label="Page navigation" th:if="${stickerPage.totalPages != 1}">
+                <ul class="pager">
+                    <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span
+                                aria-hidden="true">&larr;</span> Older</a>
+                    </li>
+
+                    <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
+                        th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
+                    </li>
+
+                    <li class="next"
+                        th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span
+                                aria-hidden="true">&rarr;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+
+<!-- /.container -->
+<!-- jQuery -->
+<script src="js/jquery.js"/>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"/>
 
 </body>
 
