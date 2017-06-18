@@ -6,7 +6,7 @@
 	</div>
 
 	<div>
-		<form method="POST" enctype="multipart/form-data" action="/sticker">
+		<form method="POST" enctype="multipart/form-data" th:action="@{/sticker}" >
 			<input type="text" name="stickerName"/>
 			<input type="number" name="stickerPrice" step="0.01" min="0.01" max="99"/>
 			<input type="file" name="stickerImage"/>

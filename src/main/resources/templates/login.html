@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring Security Example </title>
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link th:href="@{css/login-page.css}" rel="stylesheet"/>
 </head>
 <body>
 <div th:if="${param.error}">
@@ -11,10 +14,51 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<div class="container">
+    <div class="row">
+
+        <div class="main">
+
+            <h3>Please Log In, or <a th:href="@{/registration}">Sign Up</a></h3>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+                </div>
+            </div>
+            <div class="login-or">
+                <hr class="hr-or"/>
+                <span class="span-or">or</span>
+            </div>
+
+            <form th:action="@{/login}" method="post" role="form">
+                <div class="form-group">
+                    <label for="inputUsernameEmail">Username or email</label>
+                    <input type="text" class="form-control" name="username" id="inputUsernameEmail"/>
+                </div>
+                <div class="form-group">
+                    <a class="pull-right" href="#">Forgot password?</a>
+                    <label for="inputPassword">Password</label>
+                    <input type="password" class="form-control" name="password" id="inputPassword"/>
+                </div>
+                <div class="checkbox pull-right">
+                    <label><input type="checkbox"/>Remember me </label>
+                </div>
+                <button type="submit" class="btn btn btn-primary">
+                    Log In
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<!-- /.container -->
+<!-- jQuery -->
+<script th:src="@{js/jquery.js}" />
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{js/bootstrap.min.js}"/>
 </body>
 </html>

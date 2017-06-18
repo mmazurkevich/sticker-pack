@@ -9,7 +9,7 @@ import java.util.UUID;
 public class Sticker {
 
     @Id
-    @Column(name = "uuid", nullable = false)
+    @Column(name = "sticker_uuid", nullable = false)
     private String uuid;
 
     @Column(name = "sticker_name", nullable = false)
@@ -25,7 +25,7 @@ public class Sticker {
     private int count;
 
     @OneToOne
-    @JoinColumn(name="image_uuid", referencedColumnName = "uuid", unique=true, nullable=false)
+    @JoinColumn(name="image_uuid", referencedColumnName = "image_uuid", unique=true, nullable=false)
     private Image image;
 
     @PrePersist

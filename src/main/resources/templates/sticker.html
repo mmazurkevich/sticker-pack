@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <nav aria-label="Page navigation" th:if="${stickerPage.totalPages != 1}">
+            <nav aria-label="Page navigation" th:if="${stickerPage.totalPages > 1}">
                 <ul class="pager">
                     <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
                         <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span

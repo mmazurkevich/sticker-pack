@@ -1,6 +1,8 @@
 package org.sticker.pack;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class ShopcartController {
 
     private static final String SHOPCART = "SHOPCART";
+    private static final String ANONYMOUS_USER = "anonymousUser";
 
     @Autowired
     private StickerService stickerService;
@@ -34,6 +37,15 @@ public class ShopcartController {
         model.addAttribute("stickers", stickers);
         model.addAttribute("totalPrice", totalPrice);
         return "shopcart";
+    }
+
+    @GetMapping("/shopcart/confirm")
+    private String getShopcartConfirm(HttpSession session) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal().equals(ANONYMOUS_USER)) {
+            return "redirect:/login";
+        }
+        return "redirect:/order";
     }
 
     @GetMapping("/shopcart/{item}/remove")

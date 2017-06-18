@@ -12,7 +12,7 @@ import java.util.UUID;
 public class Image {
 
     @Id
-    @Column(name = "uuid", nullable = false)
+    @Column(name = "image_uuid", nullable = false)
     private String uuid;
 
     @Column(name = "origin_name", nullable = false)

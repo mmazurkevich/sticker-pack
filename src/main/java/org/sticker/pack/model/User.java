@@ -1,7 +1,9 @@
 package org.sticker.pack.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Mikhail on 04.06.2017.
@@ -37,6 +39,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    @PrePersist
+    void onCreate() {
+        this.uuid = UUID.randomUUID().toString().replace("-", "");
+        this.creationTime = new Date().getTime();
+    }
 
     public String getUuid() {
         return uuid;
