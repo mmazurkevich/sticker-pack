@@ -30,7 +30,7 @@ public class Order {
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_uuid")
     private User user;
 

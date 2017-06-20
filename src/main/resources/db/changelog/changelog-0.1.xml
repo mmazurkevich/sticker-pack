@@ -60,4 +60,20 @@
                                  referencedColumnNames="user_uuid" referencedTableName="user"/>
     </changeSet>
 
+    <changeSet id="add_email_into_user_table" author="mmazurke">
+        <addColumn tableName="user">
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="change_username_field_user_table" author="mmazurke">
+        <dropColumn tableName="user" columnName="username" />
+
+        <addColumn tableName="user">
+            <column name="username" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

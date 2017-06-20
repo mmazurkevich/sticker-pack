@@ -1,4 +1,4 @@
-package org.sticker.pack;
+package org.sticker.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

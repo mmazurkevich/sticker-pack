@@ -19,6 +19,9 @@ public class User {
     @Column(name = "creation_time", nullable = false)
     private long creationTime;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
     @Column(name = "username", nullable = false)
     private String username;
 
@@ -60,6 +63,14 @@ public class User {
 
     public void setCreationTime(long creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

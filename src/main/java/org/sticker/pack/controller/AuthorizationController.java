@@ -1,4 +1,4 @@
-package org.sticker.pack;
+package org.sticker.pack.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

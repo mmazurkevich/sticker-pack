@@ -1,14 +1,14 @@
-package org.sticker.pack;
+package org.sticker.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.sticker.pack.controller.ImageController;
 import org.sticker.pack.dto.StickerDto;
 import org.sticker.pack.model.Image;
 import org.sticker.pack.model.Pager;
