@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.sticker.pack.controller.dto.RegistrationFormDTO;
-import org.sticker.pack.model.User;
+import org.sticker.pack.model.Customer;
 import org.sticker.pack.service.RegistrationService;
 
 
@@ -27,8 +27,8 @@ public class RegistrationController {
         return "redirect:/login";
     }
 
-    private User convert(RegistrationFormDTO registrationForm) {
-        User user = new User();
+    private Customer convert(RegistrationFormDTO registrationForm) {
+        Customer user = new Customer();
         user.setEmail(registrationForm.getEmail());
         user.setPassword(registrationForm.getPassword());
         user.setFirstName(registrationForm.getFirstName());

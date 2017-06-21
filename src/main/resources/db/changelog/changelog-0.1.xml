@@ -3,9 +3,9 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="create_user_table" author="mmazurke">
-        <createTable tableName="user">
-            <column name="user_uuid" type="VARCHAR(32)">
+    <changeSet id="create_customer_table" author="mmazurke">
+        <createTable tableName="customer">
+            <column name="customer_uuid" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
             <column name="creation_time" type="BIGINT">
@@ -27,7 +27,7 @@
             <column name="delivery_address" type="VARCHAR(512)"/>
         </createTable>
 
-        <addPrimaryKey tableName="user" columnNames="user_uuid"/>
+        <addPrimaryKey tableName="customer" columnNames="customer_uuid"/>
 
     </changeSet>
 
@@ -48,30 +48,30 @@
             <column name="order_status" type="VARCHAR(256)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_uuid" type="VARCHAR(32)">
+            <column name="customer_uuid" type="VARCHAR(32)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addPrimaryKey tableName="order" columnNames="order_uuid"/>
 
-        <addForeignKeyConstraint baseColumnNames="user_uuid" baseTableName="order"
-                                 constraintName="fk_order_user_uuid"
-                                 referencedColumnNames="user_uuid" referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="customer_uuid" baseTableName="order"
+                                 constraintName="fk_order_customer_uuid"
+                                 referencedColumnNames="customer_uuid" referencedTableName="customer"/>
     </changeSet>
 
-    <changeSet id="add_email_into_user_table" author="mmazurke">
-        <addColumn tableName="user">
+    <changeSet id="add_email_into_customer_table" author="mmazurke">
+        <addColumn tableName="customer">
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>
 
-    <changeSet id="change_username_field_user_table" author="mmazurke">
-        <dropColumn tableName="user" columnName="username" />
+    <changeSet id="change_username_field_customer_table" author="mmazurke">
+        <dropColumn tableName="customer" columnName="username" />
 
-        <addColumn tableName="user">
+        <addColumn tableName="customer">
             <column name="username" type="VARCHAR(255)"/>
         </addColumn>
     </changeSet>

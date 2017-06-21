@@ -31,8 +31,8 @@ public class Order {
     private OrderStatus orderStatus;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_uuid")
-    private User user;
+    @JoinColumn(name="customer_uuid", referencedColumnName = "customer_uuid")
+    private Customer customer;
 
     @PrePersist
     void onCreate() {
@@ -72,12 +72,12 @@ public class Order {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public User getUser() {
-        return user;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public OrderStatus getOrderStatus() {

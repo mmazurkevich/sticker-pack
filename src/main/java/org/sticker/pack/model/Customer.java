@@ -9,11 +9,11 @@ import java.util.UUID;
  * Created by Mikhail on 04.06.2017.
  */
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "customer")
+public class Customer {
 
     @Id
-    @Column(name = "user_uuid", nullable = false)
+    @Column(name = "customer_uuid", nullable = false)
     private String uuid;
 
     @Column(name = "creation_time", nullable = false)
@@ -40,7 +40,7 @@ public class User {
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "customer")
     private List<Order> orders;
 
     @PrePersist
