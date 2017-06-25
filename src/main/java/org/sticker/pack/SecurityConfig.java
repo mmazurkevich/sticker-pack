@@ -21,8 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf()
+                .disable()
             .authorizeRequests()
-                .antMatchers("/", "/shopcart*","/sticker*", "/image*").permitAll()
+                .antMatchers("/", "/shopcart*","/sticker*", "/image*", "/tokensignin*").permitAll()
 //                .antMatchers("/image*").hasRole("ADMIN")
 //                .anyRequest().authenticated()
                 .and()
