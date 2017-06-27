@@ -18,6 +18,9 @@ storage:
   location: images
 liquibase:
   change-log: classpath:db/master-changelog.yml
+client-id:
+  google: 89944683825-852048csojanv1vacf88te428nuuhj82.apps.googleusercontent.com
+  facebook:
 #  url: jdbc:postgres://ec2-54-228-235-185.eu-west-1.compute.amazonaws.com:5432/da3lsnncharqf7
 #  user: waxxicpowfpdov
 #  password: 9b352154c508fe792cd3aac8d8dce99c6c022c86f8dc60c37702824aa124bc98

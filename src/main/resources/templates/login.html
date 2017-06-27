@@ -9,6 +9,25 @@
     <!--<meta name="google-signin-client_id" content="89944683825-852048csojanv1vacf88te428nuuhj82.apps.googleusercontent.com"/>-->
 </head>
 <body>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1377756422278567',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <div th:if="${param.error}">
     Invalid username and password.
 </div>
@@ -22,7 +41,7 @@
             <h3>Please Log In, or <a th:href="@{/registration}">Sign Up</a></h3>
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
-                    <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+                    <a href="#" id="facebookSingIn" class="btn btn-lg btn-primary btn-block">Facebook</a>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <a href="#" id="googleSingIn" class="btn btn-lg btn-info btn-block">Google</a>
@@ -62,6 +81,16 @@
 <script th:src="@{js/bootstrap.min.js}"/>
 <script src="https://apis.google.com/js/platform.js"/>
 <script>
+    $( "#facebookSingIn" ).click(function() {
+        FB.login(function(response) {
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+            } else {
+                // The person is not logged into this app or we are unable to tell.
+            }
+        }, {scope: 'public_profile,email'});
+    });
+
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
