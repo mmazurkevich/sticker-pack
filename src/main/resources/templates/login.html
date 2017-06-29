@@ -84,8 +84,21 @@
     $( "#facebookSingIn" ).click(function() {
         FB.login(function(response) {
             if (response.status === 'connected') {
+                console.log(JSON.stringify(response));
+//                console.log(response.authResponse.accessToken);
+                FB.api('/me',
+                        {fields: "id,about,age_range,picture,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work"},
+                        function(response) {
+                            console.log('API response', response);
+                        }
+                );
+//                FB.api("/debug_token?input_token=" + response.authResponse.accessToken,
+//                        function (responses) {
+//                            console.log('Successful login for: ' + responses);
+//                });
                 // Logged into your app and Facebook.
             } else {
+                console.log(JSON.stringify(response));
                 // The person is not logged into this app or we are unable to tell.
             }
         }, {scope: 'public_profile,email'});
