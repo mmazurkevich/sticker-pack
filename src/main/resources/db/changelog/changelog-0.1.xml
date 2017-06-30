@@ -76,4 +76,18 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="add_auth_type_field_customer_table" author="mmazurke">
+        <addColumn tableName="customer">
+            <column name="auth_type" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <dropColumn tableName="customer" columnName="password" />
+
+        <addColumn tableName="customer">
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

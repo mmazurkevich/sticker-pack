@@ -1,5 +1,7 @@
 package org.sticker.pack.model;
 
+import org.sticker.pack.model.converter.AuthTypeConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Customer {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "first_name", nullable = false)
@@ -40,12 +42,17 @@ public class Customer {
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
+    @Column(name = "auth_type")
+    @Convert(converter = AuthTypeConverter.class)
+    private AuthType authType;
+
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "customer")
     private List<Order> orders;
 
     @PrePersist
     void onCreate() {
-        this.uuid = UUID.randomUUID().toString().replace("-", "");
+        if (uuid.isEmpty())
+            this.uuid = UUID.randomUUID().toString().replace("-", "");
         this.creationTime = new Date().getTime();
     }
 
@@ -119,6 +126,14 @@ public class Customer {
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public AuthType getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(AuthType authType) {
+        this.authType = authType;
     }
 
     public List<Order> getOrders() {
