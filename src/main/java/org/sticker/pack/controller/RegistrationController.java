@@ -6,15 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.sticker.pack.controller.dto.RegistrationFormDTO;
+import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
-import org.sticker.pack.service.RegistrationService;
+import org.sticker.pack.service.CustomerService;
 
 
 @Controller
 public class RegistrationController {
 
     @Autowired
-    private RegistrationService registrationService;
+    private CustomerService customerService;
 
     @GetMapping("/registration")
     public String registrationPage() {
@@ -23,16 +24,17 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute RegistrationFormDTO registrationForm) {
-        registrationService.registrateUser(convert(registrationForm));
+        customerService.create(convert(registrationForm));
         return "redirect:/login";
     }
 
     private Customer convert(RegistrationFormDTO registrationForm) {
-        Customer user = new Customer();
-        user.setEmail(registrationForm.getEmail());
-        user.setPassword(registrationForm.getPassword());
-        user.setFirstName(registrationForm.getFirstName());
-        user.setLastName(registrationForm.getLastName());
-        return user;
+        Customer customer = new Customer();
+        customer.setEmail(registrationForm.getEmail());
+        customer.setPassword(registrationForm.getPassword());
+        customer.setFirstName(registrationForm.getFirstName());
+        customer.setLastName(registrationForm.getLastName());
+        customer.setAuthType(AuthType.DEFAULT);
+        return customer;
     }
 }

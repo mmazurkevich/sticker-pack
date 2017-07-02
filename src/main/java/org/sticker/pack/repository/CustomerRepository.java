@@ -11,6 +11,7 @@ import org.sticker.pack.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, String>{
 
     Customer findFirstByEmailAndPassword(String email, String password);
+    Customer findFirstByUuid(String uuid);
 
 }
 

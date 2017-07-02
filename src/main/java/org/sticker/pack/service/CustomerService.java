@@ -6,15 +6,15 @@ import org.sticker.pack.model.Customer;
 import org.sticker.pack.repository.CustomerRepository;
 
 /**
- * Created by Mikhail on 21.06.2017.
+ * Created by Mikhail on 01.07.2017.
  */
 @Service
-public class RegistrationService {
+public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
 
-    public void registrateUser(Customer user) {
-        customerRepository.save(user);
+    public void create(Customer customer) {
+        customerRepository.save(customer);
     }
 }

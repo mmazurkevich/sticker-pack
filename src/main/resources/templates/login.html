@@ -92,17 +92,21 @@
                         "middle_name," +
                         "last_name"},
                         function(response) {
-                            console.log('API response', response);
+                var authInfo = JSON.stringify({id: response.id,
+                    email: response.email,
+                    name: response.name,
+                    firstName: response.first_name,
+                    lastName: response.last_name});
+                                    $.ajax({
+                                        type:'POST',
+                                        url:'/facebook-signin',
+                                        data: JSON.stringify(response),
+                                        contentType: 'application/json',
+                                        dataType: 'json'
+                                    });
+//                            $.post( "/facebook-signin", JSON.stringify(authInfo));
                         }
                 );
-//                FB.api("/debug_token?input_token=" + response.authResponse.accessToken,
-//                        function (responses) {
-//                            console.log('Successful login for: ' + responses);
-//                });
-                // Logged into your app and Facebook.
-            } else {
-                console.log(JSON.stringify(response));
-                // The person is not logged into this app or we are unable to tell.
             }
         }, {scope: 'public_profile,email'});
     });
