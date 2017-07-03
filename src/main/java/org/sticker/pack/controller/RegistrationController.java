@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.sticker.pack.controller.dto.RegistrationFormDTO;
+import org.sticker.pack.controller.dto.RegistrationWrapper;
 import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
 import org.sticker.pack.service.CustomerService;
@@ -23,12 +23,12 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute RegistrationFormDTO registrationForm) {
+    public String registration(@ModelAttribute RegistrationWrapper registrationForm) {
         customerService.create(convert(registrationForm));
         return "redirect:/login";
     }
 
-    private Customer convert(RegistrationFormDTO registrationForm) {
+    private Customer convert(RegistrationWrapper registrationForm) {
         Customer customer = new Customer();
         customer.setEmail(registrationForm.getEmail());
         customer.setPassword(registrationForm.getPassword());

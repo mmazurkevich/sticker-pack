@@ -7,19 +7,28 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.sticker.pack.controller.dto.OAuthDTO;
+import org.sticker.pack.controller.dto.AuthenticationWrapper;
 import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
 import org.sticker.pack.service.CustomerService;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import static org.sticker.pack.SecurityConfig.ROLE_CUSTOMER;
 
 /**
  * Created by Mikhail on 23.05.2017.
@@ -31,6 +40,8 @@ public class AuthorizationController {
     private String googleClientId;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -56,14 +67,32 @@ public class AuthorizationController {
             customer.setUsername((String) payload.get("name"));
             customer.setAuthType(AuthType.GOOGLE);
             customerService.create(customer);
+            List<GrantedAuthority> grantedAuths = new ArrayList<>();
+            grantedAuths.add(new SimpleGrantedAuthority(ROLE_CUSTOMER));
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(payload.getEmail(),"", grantedAuths);
+            authenticationToken.setDetails(AuthType.GOOGLE);
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
         return "redirect:/sticker";
     }
 
     @PostMapping(value = "/facebook-signin", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String facebookAuth(@RequestBody OAuthDTO authData) {
-        System.out.println(authData);
-        return "";
+    public String facebookAuth(@RequestBody AuthenticationWrapper authData) {
+        Customer customer = new Customer();
+        customer.setUuid(authData.getId());
+        customer.setEmail(authData.getEmail());
+        customer.setUsername(authData.getName());
+        customer.setFirstName(authData.getFirstName());
+        customer.setLastName(authData.getLastName());
+        customer.setMiddleName(authData.getMiddleName());
+        customer.setAuthType(AuthType.FACEBOOK);
+        customerService.create(customer);
+        List<GrantedAuthority> grantedAuths = new ArrayList<>();
+        grantedAuths.add(new SimpleGrantedAuthority(ROLE_CUSTOMER));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authData.getEmail(),"", grantedAuths);
+        authenticationToken.setDetails(AuthType.FACEBOOK);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        return "redirect:/sticker";
     }
 
 }

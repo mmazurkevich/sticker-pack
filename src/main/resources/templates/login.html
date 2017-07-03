@@ -81,30 +81,28 @@
 <script th:src="@{js/bootstrap.min.js}"/>
 <script src="https://apis.google.com/js/platform.js"/>
 <script>
-    $( "#facebookSingIn" ).click(function() {
-        FB.login(function(response) {
+    $("#facebookSingIn").click(function () {
+        FB.login(function (response) {
             if (response.status === 'connected') {
-                FB.api('/me', {fields:
-                        "id," +
-                        "email," +
-                        "name," +
-                        "first_name," +
-                        "middle_name," +
-                        "last_name"},
-                        function(response) {
-                var authInfo = JSON.stringify({id: response.id,
-                    email: response.email,
-                    name: response.name,
-                    firstName: response.first_name,
-                    lastName: response.last_name});
-                                    $.ajax({
-                                        type:'POST',
-                                        url:'/facebook-signin',
-                                        data: JSON.stringify(response),
-                                        contentType: 'application/json',
-                                        dataType: 'json'
-                                    });
-//                            $.post( "/facebook-signin", JSON.stringify(authInfo));
+                FB.api('/me', {fields: "id, email, name, first_name, middle_name, last_name"}, function (response) {
+                            var authWrapper = JSON.stringify({
+                                id: response.id,
+                                email: response.email,
+                                name: response.name,
+                                firstName: response.first_name,
+                                middleName: response.middle_name,
+                                lastName: response.last_name
+                            });
+                            $.ajax({
+                                type: 'POST',
+                                url: '/facebook-signin',
+                                data: authWrapper,
+                                contentType: 'application/json',
+                                success: function (data) {
+                                    document.location = data;
+                                },
+                                dataType: 'json'
+                            });
                         }
                 );
             }

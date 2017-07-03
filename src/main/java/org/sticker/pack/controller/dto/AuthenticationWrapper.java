@@ -3,7 +3,7 @@ package org.sticker.pack.controller.dto;
 /**
  * Created by Mikhail on 30.06.2017.
  */
-public class OAuthDTO {
+public class AuthenticationWrapper {
 
     private String id;
     private String email;
@@ -62,7 +62,7 @@ public class OAuthDTO {
 
     @Override
     public String toString() {
-        return "OAuthDTO{" +
+        return "AuthenticationWrapper{" +
                 "id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +

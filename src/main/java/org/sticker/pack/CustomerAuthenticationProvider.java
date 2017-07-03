@@ -8,6 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
 import org.sticker.pack.repository.CustomerRepository;
 
@@ -46,7 +47,6 @@ public class CustomerAuthenticationProvider implements AuthenticationProvider{
                     authentication = new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
                     return authentication;
                 }
-                return null;
             }
         }
         return null;

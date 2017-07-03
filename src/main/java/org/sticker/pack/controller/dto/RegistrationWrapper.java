@@ -2,7 +2,7 @@ package org.sticker.pack.controller.dto;
 
 import java.util.Objects;
 
-public class RegistrationFormDTO {
+public class RegistrationWrapper {
 
     private String email;
     private String password;
@@ -54,7 +54,7 @@ public class RegistrationFormDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RegistrationFormDTO that = (RegistrationFormDTO) o;
+        RegistrationWrapper that = (RegistrationWrapper) o;
         return Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password) &&
                 Objects.equals(repassword, that.repassword) &&
@@ -69,7 +69,7 @@ public class RegistrationFormDTO {
 
     @Override
     public String toString() {
-        return "RegistrationFormDTO{" +
+        return "RegistrationWrapper{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", repassword='" + repassword + '\'' +
