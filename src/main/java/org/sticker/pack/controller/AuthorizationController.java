@@ -6,7 +6,9 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,10 +40,9 @@ public class AuthorizationController {
 
     @Value("client-id.google")
     private String googleClientId;
+    private static final String REDIRECTING_URL = "/sticker";
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -49,7 +50,7 @@ public class AuthorizationController {
     }
 
     @PostMapping("/google-signin")
-    public String googleAuth(@RequestParam("token_id") String token) throws GeneralSecurityException, IOException {
+    public ResponseEntity<String> googleAuth(@RequestParam("token_id") String token) throws GeneralSecurityException, IOException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                 .Builder(new NetHttpTransport(), new JacksonFactory())
                 .setAudience(Collections.singletonList(googleClientId))
@@ -73,11 +74,11 @@ public class AuthorizationController {
             authenticationToken.setDetails(AuthType.GOOGLE);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        return "redirect:/sticker";
+        return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 
     @PostMapping(value = "/facebook-signin", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String facebookAuth(@RequestBody AuthenticationWrapper authData) {
+    public ResponseEntity<String> facebookAuth(@RequestBody AuthenticationWrapper authData) {
         Customer customer = new Customer();
         customer.setUuid(authData.getId());
         customer.setEmail(authData.getEmail());
@@ -92,7 +93,7 @@ public class AuthorizationController {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authData.getEmail(),"", grantedAuths);
         authenticationToken.setDetails(AuthType.FACEBOOK);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        return "redirect:/sticker";
+        return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 
 }
