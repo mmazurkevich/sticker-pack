@@ -51,7 +51,7 @@ public class Customer {
 
     @PrePersist
     void onCreate() {
-        if (uuid.isEmpty())
+        if (uuid == null || uuid.isEmpty())
             this.uuid = UUID.randomUUID().toString().replace("-", "");
         this.creationTime = new Date().getTime();
     }
