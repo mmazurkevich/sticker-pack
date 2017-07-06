@@ -23,13 +23,11 @@
                     <a href="#">Contact</a>
                 </li>
             </ul>
-            <p class="navbar-text navbar-right">Signed in as
-                <a href="#" class="navbar-link">Mark Otto</a>
-                <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
+            <p class="navbar-text navbar-right" sec:authorize="isAuthenticated()">
+                Signed in as <span sec:authentication="name"/>
                 <a th:href="@{/logout}">Sign Out</a>
-                </span>
             </p>
+            <a class="navbar-text navbar-right" th:href="@{/login}" sec:authorize="!isAuthenticated()">Log In</a>
         </div>
         <!-- /.navbar-collapse -->
     </div>

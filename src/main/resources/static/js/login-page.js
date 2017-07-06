@@ -59,7 +59,9 @@ function renderButton() {
         });
         auth2.attachClickHandler(document.getElementById('googleSingIn'), {},
             function(googleUser) {
-                $.post( "/google-signin", { token_id: googleUser.getAuthResponse().id_token });
+                $.post( "/google-signin", { token_id: googleUser.getAuthResponse().id_token }, function (data) {
+                    document.location = data;
+                });
             });
     });
 
