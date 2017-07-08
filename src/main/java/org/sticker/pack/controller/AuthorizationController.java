@@ -38,7 +38,7 @@ import static org.sticker.pack.SecurityConfig.ROLE_CUSTOMER;
 @Controller
 public class AuthorizationController {
 
-    @Value("client-id.google")
+    @Value("${client-id.google}")
     private String googleClientId;
     private static final String REDIRECTING_URL = "/sticker";
     @Autowired

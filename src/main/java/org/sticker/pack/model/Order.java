@@ -4,6 +4,7 @@ import org.sticker.pack.model.converter.OrderStatusConverter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -33,6 +34,9 @@ public class Order {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="customer_uuid", referencedColumnName = "customer_uuid")
     private Customer customer;
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     @PrePersist
     void onCreate() {
@@ -86,5 +90,13 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

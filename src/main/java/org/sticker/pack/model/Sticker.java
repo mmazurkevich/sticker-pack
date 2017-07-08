@@ -2,6 +2,7 @@ package org.sticker.pack.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +28,9 @@ public class Sticker {
     @OneToOne
     @JoinColumn(name="image_uuid", referencedColumnName = "image_uuid", unique=true, nullable=false)
     private Image image;
+
+    @OneToMany(fetch=FetchType.LAZY, mappedBy = "sticker")
+    private List<OrderItem> orderItems;
 
     @PrePersist
     void onCreate() {
@@ -80,5 +84,13 @@ public class Sticker {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
