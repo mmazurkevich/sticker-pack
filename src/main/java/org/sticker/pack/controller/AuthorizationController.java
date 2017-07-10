@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.sticker.pack.controller.dto.AuthenticationWrapper;
 import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
+import org.sticker.pack.repository.CustomerRepository;
 import org.sticker.pack.service.CustomerService;
 
 import java.io.IOException;
@@ -30,23 +33,49 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.sticker.pack.SecurityConfig.ROLE_ADMIN;
 import static org.sticker.pack.SecurityConfig.ROLE_CUSTOMER;
 
 /**
  * Created by Mikhail on 23.05.2017.
  */
 @Controller
-public class AuthorizationController {
+public class AuthorizationController implements AuthenticationProvider {
 
+    @Autowired
+    private CustomerService customerService;
     @Value("${client-id.google}")
     private String googleClientId;
     private static final String REDIRECTING_URL = "/sticker";
-    @Autowired
-    private CustomerService customerService;
+    private static final String STICKER_ADMIN = "sticker@admin";
+    private static final String ADMIN_PASSWORD = "1234";
 
     @GetMapping("/login")
     public String loginPage() {
         return "login";
+    }
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        if (authentication.getPrincipal() != null && authentication.getCredentials()!= null) {
+            String email = authentication.getPrincipal().toString();
+            String password = authentication.getCredentials().toString();
+            if (email.equals(STICKER_ADMIN) && password.equals(ADMIN_PASSWORD)) {
+                List<GrantedAuthority> grantedAuths = new ArrayList<>();
+                grantedAuths.add(new SimpleGrantedAuthority(ROLE_ADMIN));
+                authentication = new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
+                return authentication;
+            } else {
+                Customer customer = customerService.find(email, password);
+                if (customer != null) {
+                    List<GrantedAuthority> grantedAuths = new ArrayList<>();
+                    grantedAuths.add(new SimpleGrantedAuthority(ROLE_CUSTOMER));
+                    authentication = new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
+                    return authentication;
+                }
+            }
+        }
+        return null;
     }
 
     @PostMapping("/google-signin")
@@ -96,4 +125,8 @@ public class AuthorizationController {
         return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
 }

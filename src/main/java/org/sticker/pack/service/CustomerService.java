@@ -17,4 +17,8 @@ public class CustomerService {
     public void create(Customer customer) {
         customerRepository.save(customer);
     }
+
+    public Customer find(String email, String password) {
+        return customerRepository.findFirstByEmailAndPassword(email, password);
+    }
 }
