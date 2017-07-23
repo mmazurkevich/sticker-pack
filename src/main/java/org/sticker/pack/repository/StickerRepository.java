@@ -9,4 +9,5 @@ import org.sticker.pack.model.Sticker;
  */
 @Repository
 public interface StickerRepository extends JpaRepository<Sticker, String> {
+    Sticker findFirstByUuid(String uuid);
 }

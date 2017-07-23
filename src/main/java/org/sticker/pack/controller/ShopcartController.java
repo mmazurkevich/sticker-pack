@@ -1,21 +1,20 @@
 package org.sticker.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.sticker.pack.model.Sticker;
+import org.sticker.pack.service.OrderService;
 import org.sticker.pack.service.StickerService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ShopcartController {
@@ -25,6 +24,8 @@ public class ShopcartController {
 
     @Autowired
     private StickerService stickerService;
+    @Autowired
+    private OrderService shopcartService;
 
     @GetMapping("/shopcart")
     private String getShopcartItems(HttpSession session, Model model) {
@@ -58,14 +59,19 @@ public class ShopcartController {
 
     @GetMapping("/shopcart/{item}/add")
     private String addShopcartItem(HttpSession session, @PathVariable("item") String item) {
-        if (session.getAttribute(SHOPCART) != null) {
-            List<String> shopcart = (List<String>)session.getAttribute(SHOPCART);
-            shopcart.add(item);
-            session.setAttribute(SHOPCART, shopcart);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            if (session.getAttribute(SHOPCART) != null) {
+                List<String> shopcart = (List<String>)session.getAttribute(SHOPCART);
+                shopcart.add(item);
+                session.setAttribute(SHOPCART, shopcart);
+            } else {
+                List<String> shopcart = new ArrayList<>();
+                shopcart.add(item);
+                session.setAttribute(SHOPCART, shopcart);
+            }
         } else {
-            List<String> shopcart = new ArrayList<>();
-            shopcart.add(item);
-            session.setAttribute(SHOPCART, shopcart);
+            shopcartService.addItemToShopcart(item, auth.getPrincipal().toString());
         }
         return "redirect:/sticker";
     }
