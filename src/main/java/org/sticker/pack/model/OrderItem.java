@@ -17,12 +17,12 @@ public class OrderItem {
     @Column(name = "items_count", nullable = false)
     private int itemsCount;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="order_uuid", referencedColumnName = "order_uuid")
+    @ManyToOne
+    @JoinColumn(name="order_uuid")
     private Order order;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="sticker_uuid", referencedColumnName = "sticker_uuid")
+    @ManyToOne
+    @JoinColumn(name="sticker_uuid")
     private Sticker sticker;
 
     @PrePersist

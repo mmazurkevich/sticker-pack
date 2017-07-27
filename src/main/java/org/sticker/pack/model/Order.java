@@ -24,15 +24,15 @@ public class Order {
     @Column(name = "order_number", nullable = false)
     private int orderNumber;
 
-    @Column(name = "delivery_address", nullable = false)
+    @Column(name = "delivery_address")
     private String deliveryAddress;
 
     @Column(name = "order_status", nullable = false)
     @Convert(converter = OrderStatusConverter.class)
     private OrderStatus orderStatus;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="customer_uuid", referencedColumnName = "customer_uuid")
+    @ManyToOne
+    @JoinColumn(name="customer_uuid")
     private Customer customer;
 
     @OneToMany(fetch=FetchType.LAZY, mappedBy = "order")

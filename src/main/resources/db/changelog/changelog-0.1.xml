@@ -42,9 +42,7 @@
             <column name="order_number" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
-            <column name="delivery_address" type="VARCHAR(512)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="delivery_address" type="VARCHAR(512)"/>
             <column name="order_status" type="VARCHAR(256)">
                 <constraints nullable="false"/>
             </column>

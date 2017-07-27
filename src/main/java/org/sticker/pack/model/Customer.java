@@ -46,7 +46,7 @@ public class Customer {
     @Convert(converter = AuthTypeConverter.class)
     private AuthType authType;
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(mappedBy = "customer")
     private List<Order> orders;
 
     @PrePersist

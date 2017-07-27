@@ -1,5 +1,5 @@
 package org.sticker.pack.model;
 
 public enum  OrderStatus {
-    DELIVERED, PAYED
+    PENDING, AWAITING_PAYMENT, AWAITING_SHIPMENT, PAYED, SHIPPED, COMPLETED, CANCELLED, REFUNDED
 }

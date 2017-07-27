@@ -5,6 +5,11 @@ spring:
       max-request-size: 512KB
   thymeleaf:
     cache: false
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        globally_quoted_identifiers: true
   datasource:
     url: jdbc:postgresql://localhost:5432/sticker_pack
     username: eobr
