@@ -26,15 +26,19 @@ import org.sticker.pack.model.AuthType;
 import org.sticker.pack.model.Customer;
 import org.sticker.pack.repository.CustomerRepository;
 import org.sticker.pack.service.CustomerService;
+import org.sticker.pack.service.OrderService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.sticker.pack.SecurityConfig.ROLE_ADMIN;
 import static org.sticker.pack.SecurityConfig.ROLE_CUSTOMER;
+import static org.sticker.pack.controller.HttpUtilities.SHOPCART;
 
 /**
  * Created by Mikhail on 23.05.2017.
@@ -44,6 +48,10 @@ public class AuthorizationController implements AuthenticationProvider {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private HttpUtilities httpUtilities;
+    @Autowired
+    private OrderService orderService;
     @Value("${client-id.google}")
     private String googleClientId;
     private static final String REDIRECTING_URL = "/sticker";
@@ -71,6 +79,7 @@ public class AuthorizationController implements AuthenticationProvider {
                     List<GrantedAuthority> grantedAuths = new ArrayList<>();
                     grantedAuths.add(new SimpleGrantedAuthority(ROLE_CUSTOMER));
                     authentication = new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
+                    assignOrderToCustomer(customer.getEmail());
                     return authentication;
                 }
             }
@@ -79,7 +88,7 @@ public class AuthorizationController implements AuthenticationProvider {
     }
 
     @PostMapping("/google-signin")
-    public ResponseEntity<String> googleAuth(@RequestParam("token_id") String token) throws GeneralSecurityException, IOException {
+    public ResponseEntity<String> googleAuth(HttpSession session, @RequestParam("token_id") String token) throws GeneralSecurityException, IOException {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
                 .Builder(new NetHttpTransport(), new JacksonFactory())
                 .setAudience(Collections.singletonList(googleClientId))
@@ -102,12 +111,13 @@ public class AuthorizationController implements AuthenticationProvider {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(payload.getEmail(),"", grantedAuths);
             authenticationToken.setDetails(AuthType.GOOGLE);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            assignOrderToCustomer(customer.getEmail());
         }
         return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 
     @PostMapping(value = "/facebook-signin", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> facebookAuth(@RequestBody AuthenticationWrapper authData) {
+    public ResponseEntity<String> facebookAuth(HttpSession session, @RequestBody AuthenticationWrapper authData) {
         Customer customer = new Customer();
         customer.setUuid(authData.getId());
         customer.setEmail(authData.getEmail());
@@ -122,11 +132,21 @@ public class AuthorizationController implements AuthenticationProvider {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authData.getEmail(),"", grantedAuths);
         authenticationToken.setDetails(AuthType.FACEBOOK);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        assignOrderToCustomer(customer.getEmail());
         return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    private void assignOrderToCustomer(String email) {
+        HttpSession httpSession = httpUtilities.getHttpSession();
+        if (httpSession.getAttribute(SHOPCART) != null) {
+            List<String> shopcart = (List<String>)httpSession.getAttribute(SHOPCART);
+            orderService.addItemToShopcart(email, (String[])shopcart.toArray());
+            httpSession.setAttribute(SHOPCART, null);
+        }
     }
 }

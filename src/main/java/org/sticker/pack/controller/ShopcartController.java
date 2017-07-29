@@ -16,16 +16,17 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.sticker.pack.controller.HttpUtilities.SHOPCART;
+
 @Controller
 public class ShopcartController {
 
-    private static final String SHOPCART = "SHOPCART";
     private static final String ANONYMOUS_USER = "anonymousUser";
 
     @Autowired
     private StickerService stickerService;
     @Autowired
-    private OrderService shopcartService;
+    private OrderService orderService;
 
     @GetMapping("/shopcart")
     private String getShopcartItems(HttpSession session, Model model) {
@@ -51,9 +52,17 @@ public class ShopcartController {
 
     @GetMapping("/shopcart/{item}/remove")
     private String removeShopcartItem(HttpSession session, @PathVariable("item") String item) {
-        List<String> shopcart = (List<String>) session.getAttribute(SHOPCART);
-        shopcart.remove(item);
-        session.setAttribute(SHOPCART, shopcart);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) {
+            List<String> shopcart = (List<String>) session.getAttribute(SHOPCART);
+            shopcart.remove(item);
+            if (shopcart.size() == 0)
+                session.setAttribute(SHOPCART, null);
+            else
+                session.setAttribute(SHOPCART, shopcart);
+        } else {
+            orderService.addItemToShopcart(auth.getPrincipal().toString(), item);
+        }
         return "redirect:/shopcart";
     }
 
@@ -71,7 +80,7 @@ public class ShopcartController {
                 session.setAttribute(SHOPCART, shopcart);
             }
         } else {
-            shopcartService.addItemToShopcart(item, auth.getPrincipal().toString());
+            orderService.addItemToShopcart(auth.getPrincipal().toString(), item);
         }
         return "redirect:/sticker";
     }
