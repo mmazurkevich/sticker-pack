@@ -37,12 +37,13 @@
                         <td>Price</td>
                         <td>Remove</td>
                     </tr>
-                    <tr th:each="sticker,iterStat  : ${stickers}">
+                    <tr th:each="shopcartElementWrapper,iterStat  : ${stickers}">
                         <td th:text="${iterStat.index + 1}"></td>
-                        <td th:text="${sticker.name}"></td>
-                        <td th:text="${sticker.price}"></td>
+                        <td th:text="${shopcartElementWrapper.name}"></td>
+                        <td th:text="${shopcartElementWrapper.count}"></td>
+                        <td th:text="${shopcartElementWrapper.price}"></td>
                         <td>
-                            <a th:href="@{shopcart/{uuid}/remove(uuid=${sticker.uuid})}">Remove</a>
+                            <a th:href="@{shopcart/{uuid}/remove(uuid=${shopcartElementWrapper.uuid})}">Remove</a>
                         </td>
                     </tr>
                 </table>

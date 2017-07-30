@@ -3,6 +3,7 @@ package org.sticker.pack.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -92,5 +93,24 @@ public class Sticker {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sticker sticker = (Sticker) o;
+        return Float.compare(sticker.price, price) == 0 &&
+                createDate == sticker.createDate &&
+                count == sticker.count &&
+                Objects.equals(uuid, sticker.uuid) &&
+                Objects.equals(name, sticker.name) &&
+                Objects.equals(image, sticker.image) &&
+                Objects.equals(orderItems, sticker.orderItems);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name, price, createDate, count, image, orderItems);
     }
 }

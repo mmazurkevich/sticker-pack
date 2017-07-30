@@ -14,6 +14,7 @@ import org.sticker.pack.repository.OrderRepository;
 import org.sticker.pack.repository.StickerRepository;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -72,15 +73,20 @@ public class OrderService {
                 .stream()
                 .filter(orderItem -> orderItem.getSticker().getUuid().equals(stickerNumber))
                 .findFirst().get();
-        if (item.getItemsCount() > 1) {
-            item.setItemsCount(item.getItemsCount() - 1);
-            orderItemRepository.save(item);
-        } else {
-            orderItemRepository.delete(item.getUuid());
-        }
-        //TODO:: check order items count after remove element 
+        orderItemRepository.delete(item.getUuid());
+        //TODO:: check order items count after remove element
         if (order.getOrderItems().size() == 1)
             orderRepository.delete(order.getUuid());
+    }
+
+    public List<OrderItem> getItemsFromShopcart(String email) {
+        Customer customer = customerRepository.findFirstByEmail(email);
+        return customer.getOrders()
+                .stream()
+                .filter(it -> it.getOrderStatus().equals(OrderStatus.PENDING))
+                .findFirst()
+                .get()
+                .getOrderItems();
     }
 
     private OrderItem getOrderItem(Sticker sticker, Order order) {
