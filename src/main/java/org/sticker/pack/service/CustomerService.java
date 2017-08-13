@@ -21,4 +21,8 @@ public class CustomerService {
     public Customer find(String email, String password) {
         return customerRepository.findFirstByEmailAndPassword(email, password);
     }
+
+    public Customer find(String email) {
+        return customerRepository.findFirstByEmail(email);
+    }
 }

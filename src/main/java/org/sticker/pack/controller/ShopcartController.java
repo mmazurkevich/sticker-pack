@@ -59,6 +59,8 @@ public class ShopcartController {
 
     @GetMapping("/shopcart/confirm")
     private String getShopcartConfirm(HttpSession session) {
+        //TODO:: Проверить что не залогинен если залогинен то презаполнить поля заказа
+        // иначе просто дать пользовтаелю заполнить их
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal().equals(ANONYMOUS_USER)) {
             return "redirect:/login";
