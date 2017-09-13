@@ -7,6 +7,8 @@
 <body>
 <div id="dropin-container"></div>
 <button id="submit-button">Request payment method</button>
+<!-- jQuery -->
+<script src="js/jquery.js"/>
 <script th:inline="javascript">
     var button = document.querySelector('#submit-button');
 
@@ -16,7 +18,12 @@
     }, function (createErr, instance) {
         button.addEventListener('click', function () {
             instance.requestPaymentMethod(function (err, payload) {
-                // Submit payload.nonce to your server
+                $.ajax({
+                    type: 'POST',
+                    url: '/checkout',
+                    data: payload.nonce,
+                    contentType: 'application/json'
+                });
             });
         });
     });
