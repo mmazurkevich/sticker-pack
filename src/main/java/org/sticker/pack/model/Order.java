@@ -24,6 +24,15 @@ public class Order {
     @Column(name = "order_number", nullable = false)
     private int orderNumber;
 
+    @Column(name = "post_index")
+    private String postIndex;
+
+    @Column(name = "region")
+    private String region;
+
+    @Column(name = "city")
+    private String city;
+
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
@@ -98,5 +107,29 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public String getPostIndex() {
+        return postIndex;
+    }
+
+    public void setPostIndex(String postIndex) {
+        this.postIndex = postIndex;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

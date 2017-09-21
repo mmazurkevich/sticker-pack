@@ -115,4 +115,12 @@
                                  referencedColumnNames="sticker_uuid" referencedTableName="sticker"/>
     </changeSet>
 
+    <changeSet id="add_columns_order_table" author="mmazurke">
+        <addColumn tableName="order">
+            <column name="post_index" type="VARCHAR(255)"/>
+            <column name="region" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
