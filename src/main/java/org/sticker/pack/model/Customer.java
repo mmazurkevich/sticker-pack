@@ -39,6 +39,9 @@ public class Customer {
     @Column(name = "middle_name")
     private String middleName;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
@@ -118,6 +121,14 @@ public class Customer {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getDeliveryAddress() {

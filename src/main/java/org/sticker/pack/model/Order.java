@@ -27,8 +27,8 @@ public class Order {
     @Column(name = "post_index")
     private String postIndex;
 
-    @Column(name = "region")
-    private String region;
+    @Column(name = "country")
+    private String country;
 
     @Column(name = "city")
     private String city;
@@ -117,12 +117,12 @@ public class Order {
         this.postIndex = postIndex;
     }
 
-    public String getRegion() {
-        return region;
+    public String getCountry() {
+        return country;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {

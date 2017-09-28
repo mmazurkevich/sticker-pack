@@ -123,4 +123,17 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="change_columns_customer_table" author="mmazurke">
+        <dropColumn tableName="customer">
+            <column name="delivery_address"/>
+        </dropColumn>
+        <addColumn tableName="customer">
+            <column name="phone_number" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="change_columns_order_table" author="mmazurke">
+        <renameColumn tableName="order" oldColumnName="region" newColumnName="country"/>
+    </changeSet>
+
 </databaseChangeLog>

@@ -9,7 +9,7 @@ public class OrderInfoWrapper {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String region;
+    private String country;
     private String city;
     private String deliveryAddress;
     private String postIndex;
@@ -46,12 +46,12 @@ public class OrderInfoWrapper {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRegion() {
-        return region;
+    public String getCountry() {
+        return country;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {
@@ -85,7 +85,7 @@ public class OrderInfoWrapper {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", region='" + region + '\'' +
+                ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
                 ", postIndex='" + postIndex + '\'' +

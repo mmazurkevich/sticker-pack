@@ -1,6 +1,7 @@
 package org.sticker.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,13 +27,13 @@ public class OrderController {
     @GetMapping("/order")
     private String getOrderPage(HttpSession session, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth instanceof AnonymousAuthenticationToken) {
-//            return "redirect:/";
-//        } else {
+        if (auth instanceof AnonymousAuthenticationToken) {
+            return "redirect:/login";
+        } else {
             Customer customer = customerService.find(auth.getPrincipal().toString());
             model.addAttribute("customer", customer);
             return "order";
-//        }
+        }
     }
 
     @PostMapping("/order")
