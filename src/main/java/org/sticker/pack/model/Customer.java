@@ -42,9 +42,6 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
-
     @Column(name = "auth_type")
     @Convert(converter = AuthTypeConverter.class)
     private AuthType authType;
@@ -129,14 +126,6 @@ public class Customer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
     }
 
     public AuthType getAuthType() {

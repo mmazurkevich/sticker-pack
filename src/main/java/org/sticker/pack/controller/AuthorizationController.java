@@ -79,7 +79,7 @@ public class AuthorizationController implements AuthenticationProvider {
                     List<GrantedAuthority> grantedAuths = new ArrayList<>();
                     grantedAuths.add(new SimpleGrantedAuthority(ROLE_CUSTOMER));
                     authentication = new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
-                    assignOrderToCustomer(customer.getEmail());
+//                    assignOrderToCustomer(customer.getEmail());
                     return authentication;
                 }
             }
@@ -111,7 +111,7 @@ public class AuthorizationController implements AuthenticationProvider {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(payload.getEmail(),"", grantedAuths);
             authenticationToken.setDetails(AuthType.GOOGLE);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            assignOrderToCustomer(customer.getEmail());
+//            assignOrderToCustomer(customer.getEmail());
         }
         return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
@@ -132,7 +132,7 @@ public class AuthorizationController implements AuthenticationProvider {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authData.getEmail(),"", grantedAuths);
         authenticationToken.setDetails(AuthType.FACEBOOK);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        assignOrderToCustomer(customer.getEmail());
+//        assignOrderToCustomer(customer.getEmail());
         return new ResponseEntity<>(REDIRECTING_URL, HttpStatus.OK);
     }
 

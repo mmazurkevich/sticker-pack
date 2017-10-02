@@ -79,6 +79,10 @@ public class OrderService {
             orderRepository.delete(order.getUuid());
     }
 
+    public void updateOrder(Order order) {
+        orderRepository.save(order);
+    }
+
     public List<OrderItem> getItemsFromShopcart(String email) {
         Customer customer = customerRepository.findFirstByEmail(email);
         return customer.getOrders()

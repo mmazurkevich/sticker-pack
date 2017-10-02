@@ -39,6 +39,11 @@ public class ShopcartController {
             if (session.getAttribute(SHOPCART) != null)
                 shopcartElements = convert(stickerService.getAllStickers((List<String>) session.getAttribute(SHOPCART)));
         } else {
+            if (session.getAttribute(SHOPCART) != null) {
+                List<String> shopcart = (List<String>)session.getAttribute(SHOPCART);
+                orderService.addItemToShopcart(auth.getPrincipal().toString(), (String[])shopcart.toArray());
+                session.setAttribute(SHOPCART, null);
+            }
             shopcartElements = orderService.getItemsFromShopcart(auth.getPrincipal().toString())
                     .stream().map(orderItem -> {
                         ShopcartElementWrapper elementWrapper = new ShopcartElementWrapper();
