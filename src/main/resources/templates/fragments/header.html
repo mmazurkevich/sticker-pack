@@ -23,6 +23,7 @@
                     <a href="#">Contact</a>
                 </li>
             </ul>
+            <a href="#" class="navbar-right glyphicon glyphicon-shopping-cart " th:href="@{/shopcart}"/>
             <p class="navbar-text navbar-right" sec:authorize="isAuthenticated()">
                 Signed in as <span sec:authentication="name"/>
                 <a th:href="@{/logout}">Sign Out</a>
