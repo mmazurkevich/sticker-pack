@@ -10,64 +10,65 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <!-- Page Content -->
-<div class="container col-md-6 col-md-offset-3">
-
-    <div th:replace="fragments/carousel :: carousel"></div>
-
-    <div class="row">
-        <div class="col-sm-4 col-lg-4 col-md-4" th:each="sticker : ${stickerDtos}">
-            <div class="thumbnail">
-                <img src="http://placehold.it/320x150" alt="" width="200" height="200"
-                     th:src="${sticker.imageUrl}"/>
-                <div class="caption-title">
-                    <h3>
-                        <a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"
-                           th:text="${sticker.name}">First Product</a>
-                    </h3>
-                </div>
-                <div class="ratings">
-                    <p class="pull-right">15 reviews</p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                    </p>
-                </div>
-                <hr/>
-                <div class="row">
-                    <h4 th:text="${sticker.price}">$24.99</h4>
-                    <a href="#" class="glyphicon glyphicon-shopping-cart"
-                       th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"/>
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-8">
+            <div th:replace="fragments/carousel :: carousel"></div>
+            <div class="row">
+                <div class="col" th:each="sticker : ${stickerDtos}">
+                    <div class="thumbnail">
+                        <img src="http://placehold.it/320x150" alt="" width="200" height="200"
+                             th:src="${sticker.imageUrl}"/>
+                        <div class="caption-title">
+                            <h3>
+                                <a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"
+                                   th:text="${sticker.name}">First Product</a>
+                            </h3>
+                        </div>
+                        <div class="ratings">
+                            <p class="pull-right">15 reviews</p>
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <h4 th:text="${sticker.price}">$24.99</h4>
+                            <a href="#" class="glyphicon glyphicon-shopping-cart"
+                               th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"/>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <nav aria-label="Page navigation" th:if="${stickerPage.totalPages > 1}">
+                <ul class="pager">
+                    <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span
+                                aria-hidden="true">&larr;</span> Older</a>
+                    </li>
+
+                    <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
+                        th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
+                    </li>
+
+                    <li class="next"
+                        th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
+                        <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span
+                                aria-hidden="true">&rarr;</span></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div th:replace="fragments/footer :: footer"></div>
         </div>
     </div>
-
-    <nav aria-label="Page navigation" th:if="${stickerPage.totalPages > 1}">
-        <ul class="pager">
-            <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
-                <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span
-                        aria-hidden="true">&larr;</span> Older</a>
-            </li>
-
-            <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
-                th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
-                <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
-            </li>
-
-            <li class="next"
-                th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
-                <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span
-                        aria-hidden="true">&rarr;</span></a>
-            </li>
-        </ul>
-    </nav>
-
 </div>
-
-<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>
