@@ -4,16 +4,15 @@
     <title>Template</title>
     <div th:replace="fragments/header :: header"></div>
 </head>
-
 <body>
 
-<div th:replace="fragments/navbar :: navbar"></div>
-
-<!-- Page Content -->
-<div class="container">
-    <div class="row justify-content-center ">
+<div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/carousel :: carousel"></div>
+    <!-- Body -->
+    <div class="row justify-content-center pt-5">
         <div class="col-8">
-            <div th:replace="fragments/carousel :: carousel"></div>
+            <h3 class="text-center pb-2">Top Stickers</h3>
             <div class="row">
                 <div class="col" th:each="sticker : ${stickerDtos}">
                     <div class="thumbnail">
@@ -45,29 +44,34 @@
                 </div>
             </div>
 
-            <nav aria-label="Page navigation" th:if="${stickerPage.totalPages > 1}">
-                <ul class="pager">
-                    <li class="previous" th:classappend="${stickerPage.number == 0} ? disabled : ''">
-                        <a href="#" th:href="@{/sticker(page=${stickerPage.number})}"><span
-                                aria-hidden="true">&larr;</span> Older</a>
+            <!-- Pagination -->
+            <nav th:if="${stickerPage.totalPages > 1}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${stickerPage.number == 0} ? d-none : ''">
+                        <a class="page-link" href="#" th:href="@{/sticker(page=${stickerPage.number})}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
                     </li>
 
-                    <li th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
+                    <li class="page-item" th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}"
                         th:classappend="${page  == stickerPage.number + 1} ? disabled : ''">
-                        <a href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">1</a>
+                        <a class="page-link" href="#" th:href="@{/sticker(page=${page})}" th:text="${page}">
+                            1
+                        </a>
                     </li>
 
-                    <li class="next"
-                        th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? disabled : ''">
-                        <a href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">Newer <span
-                                aria-hidden="true">&rarr;</span></a>
+                    <li class="page-item" th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? d-none : ''">
+                        <a class="page-link" href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
 
-            <div th:replace="fragments/footer :: footer"></div>
+
         </div>
     </div>
+    <div th:replace="fragments/footer :: footer"></div>
 </div>
 
 </body>
