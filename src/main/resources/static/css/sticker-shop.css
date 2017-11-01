@@ -5,3 +5,13 @@ body{
 .btn-add-to-cart{
     border-radius: 2rem;
 }
+
+.btn-wish-list{
+    display: inline-block;
+    background-image: url(../svg/heart-outlined.svg);
+    padding: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-size: auto 100%;
+    vertical-align: middle;
+}
