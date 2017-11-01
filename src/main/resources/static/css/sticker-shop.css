@@ -1,3 +1,7 @@
 body{
     padding-top: 3.5rem;
 }
+
+.btn-add-to-cart{
+    border-radius: 2rem;
+}
