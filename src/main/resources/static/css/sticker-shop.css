@@ -7,7 +7,25 @@ body{
 }
 
 .btn-wish-list{
+    border-radius: 2rem;
     padding: 1rem 1.12rem;
     background-size: 60%;
     background: url(../svg/heart-outlined.svg) no-repeat center;
+}
+
+.btn-wish-list:active{
+    background: url(../svg/heart.svg) no-repeat center;
+    /*color: white; !important;*/
+    /*background-color: white; !important;*/
+    /*border-color: white; !important;*/
+    /*!*outline: none;*!*/
+    /*box-shadow: none;*/
+}
+
+.btn-wish-list:focus{
+    box-shadow: none;
+}
+
+.btn-wish-list:hover{
+    background: url(../svg/heart.svg) no-repeat center;
 }
