@@ -22,10 +22,10 @@
                                <!--th:text="${sticker.name}">First Product</a>-->
                         <h5 class="text-center" th:text="'$' + ${sticker.price}">$24.99</h5>
                         <hr/>
-                        <div class="row">
-                            <button type="button" class="btn btn-outline-primary btn-add-to-cart btn-wish-list" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
+                        <div class="row justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn-add-to-cart btn-wish-list mr-4" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
                             </button>
-                            <button type="button" class="btn btn-outline-primary btn-add-to-cart" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
+                            <button type="button" class="btn btn-outline-primary btn-add-to-cart ml-4" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
                                 ADD TO CART
                             </button>
                         </div>
