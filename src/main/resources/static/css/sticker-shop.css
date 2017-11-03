@@ -9,23 +9,26 @@ body{
 .btn-wish-list{
     border-radius: 2rem;
     padding: 1rem 1.12rem;
+    background-image: url(../svg/heart-outlined.svg);
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: 60%;
-    background: url(../svg/heart-outlined.svg) no-repeat center;
+    background-color: white;
+    border: 1px solid #307CFF;
 }
 
 .btn-wish-list:active{
-    background: url(../svg/heart.svg) no-repeat center;
-    /*color: white; !important;*/
-    /*background-color: white; !important;*/
-    /*border-color: white; !important;*/
-    /*!*outline: none;*!*/
-    /*box-shadow: none;*/
+    background-image: url(../svg/heart.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
 }
 
 .btn-wish-list:focus{
-    box-shadow: none;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+    outline: 0;
 }
 
 .btn-wish-list:hover{
-    background: url(../svg/heart.svg) no-repeat center;
+    background-color: #eaeaea;
 }
