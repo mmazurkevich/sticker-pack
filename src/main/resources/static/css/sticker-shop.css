@@ -17,7 +17,7 @@ body{
     border: 1px solid #307CFF;
 }
 
-.btn-wish-list:active{
+.btn-wish-list-active{
     background-image: url(../svg/heart.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -25,7 +25,7 @@ body{
 }
 
 .btn-wish-list:focus{
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+    /*box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);*/
     outline: 0;
 }
 
