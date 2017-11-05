@@ -8,14 +8,6 @@
 
 <div>
     <div th:replace="fragments/navbar :: navbar"></div>
-
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
     <div th:replace="fragments/carousel :: carousel"></div>
     <!-- Body -->
     <div class="row justify-content-center pt-5">
@@ -24,16 +16,20 @@
             <div class="card-deck pb-2 pt-2">
                 <div class="card" th:each="sticker : ${stickerDtos}">
                     <div class="card-body">
-                        <img class="card-img-top" src="http://placehold.it/320x150" alt="" width="200" height="200" th:src="${sticker.imageUrl}"/>
+                        <img class="card-img-top" src="http://placehold.it/320x150" alt="" width="200" height="200"
+                             th:src="${sticker.imageUrl}"/>
                         <h5 class="text-center" th:text="${sticker.name}"></h5>
-                            <!--<a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"-->
-                               <!--th:text="${sticker.name}">First Product</a>-->
+                        <!--<a href="#" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}"-->
+                        <!--th:text="${sticker.name}">First Product</a>-->
                         <h5 class="text-center" th:text="'$' + ${sticker.price}">$24.99</h5>
                         <hr/>
                         <div class="row justify-content-center">
-                            <button type="button" class="btn-wish-list mr-4" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
+                            <button type="button" class="btn-wish-list mr-4" data-toggle="tooltip" title=""
+                                    data-original-title="Whishlist"
+                                    th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
                             </button>
-                            <button type="button" class="btn btn-outline-primary btn-add-to-cart ml-4" th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
+                            <button type="button" class="btn btn-outline-primary btn-add-to-cart ml-4"
+                                    th:href="@{/shopcart/{uuid}/add(uuid=${sticker.uuid})}">
                                 ADD TO CART
                             </button>
                         </div>
@@ -56,7 +52,8 @@
                         </a>
                     </li>
 
-                    <li class="page-item" th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? d-none : ''">
+                    <li class="page-item"
+                        th:classappend="${stickerPage.number + 1 == stickerPage.totalPages} ? d-none : ''">
                         <a class="page-link" href="#" th:href="@{/sticker(page=${stickerPage.number + 2})}">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
