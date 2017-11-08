@@ -3,7 +3,6 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip();
     iziToast.settings({
         zindex: 2000,
-        timeout: 500000,
         position: 'topRight',
         progressBar: false
     });
@@ -13,6 +12,7 @@ $(".btn-wish-list").click(function() {
     if($(this).attr("class").includes("btn-wish-list-active")) {
         $(this).removeClass('btn-wish-list-active');
         iziToast.error({
+            icon: 'fa fa-ban',
             color: '#fdebeb',
             titleColor: '#f5514f',
             iconColor: '#f5514f',
