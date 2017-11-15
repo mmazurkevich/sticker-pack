@@ -1,4 +1,4 @@
-package org.sticker.pack.controller;
+package org.sticker.pack.aspect;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class RepeaterController {
 
     @GetMapping("/pt")
     private ResponseEntity<HttpStatus> getPaymentPage() {
-        testExample.testRepeater();
+        System.out.println(testExample.testRepeater());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

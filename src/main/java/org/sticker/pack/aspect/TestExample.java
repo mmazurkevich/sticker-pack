@@ -1,9 +1,16 @@
 package org.sticker.pack.aspect;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author mmazurke <Mikhail.Mazurkevich@t-systems.com>
  */
-public interface TestExample {
+@Service
+public class TestExample {
 
-    void testRepeater();
+    @Repeater
+    public boolean testRepeater() {
+        System.out.println("Repeated element");
+        return true;
+    }
 }

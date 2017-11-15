@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @author mmazurke <Mikhail.Mazurkevich@t-systems.com>
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
+//@Target(ElementType.METHOD)
+//@Retention(RetentionPolicy.RUNTIME)
 public @interface Repeater {
 }
